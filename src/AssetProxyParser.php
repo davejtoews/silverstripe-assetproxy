@@ -1,10 +1,15 @@
 <?php
 
+namespace BCairns\AssetProxy;
+
+use BCairns\AssetProxy\AssetProxy;
+use SilverStripe\Core\Extension;
+
 /**
  * Class AssetProxy_Parser
  * Extends ShortcodeParser, looks for links to /assets/ in HTML fields and ensures their directories exist
  */
-class AssetProxy_Parser extends Extension
+class AssetProxyParser extends Extension
 {
 
 	public function onAfterParse($content){

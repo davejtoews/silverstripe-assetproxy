@@ -1,10 +1,17 @@
 <?php
 
+namespace BCairns\AssetProxy;
+
+use SilverStripe\Assets\Image;
+use SilverStripe\Control\Director;
+use SilverStripe\Core\Convert;
+use SilverStripe\Core\Injector\Injector;
+
 /**
- * Class AssetProxy_Image
+ * Class AssetProxyImage
  * Drop-in Image replacement that will always output markup, and attempt proxy download for formatted image generation
  */
-class AssetProxy_Image extends Image
+class AssetProxyImage extends Image
 {
 
 	protected static $flush = false;
@@ -67,24 +74,24 @@ class AssetProxy_Image extends Image
 	 * @param string $format The name of the format.
 	 * @return Image_Cached|null
 	 */
-	public function getFormattedImage($format) {
-		$args = func_get_args();
-
-		if(
-			$this->recordExists() &&
-			( file_exists($this->getFullPath()) || AssetProxy::copyFromSource($this->Filename) )
-		) {
-
-			$cacheFile = call_user_func_array(array($this, "cacheFilename"), $args);
-
-			if(!file_exists(Director::baseFolder()."/".$cacheFile) || self::$flush) {
-				call_user_func_array(array($this, "generateFormattedImage"), $args);
-			}
-
-			$cached = Injector::inst()->createWithArgs('Image_Cached', array($cacheFile, false, $this));
-			return $cached;
-		}
-	}
+	//public function getFormattedImage($format) {
+	//	$args = func_get_args();
+//
+	//	if(
+	//		$this->recordExists() &&
+	//		( file_exists($this->getFullPath()) || AssetProxy::copyFromSource($this->Filename) )
+	//	) {
+//
+	//		$cacheFile = call_user_func_array(array($this, "cacheFilename"), $args);
+//
+	//		if(!file_exists(Director::baseFolder()."/".$cacheFile) || self::$flush) {
+	//			call_user_func_array(array($this, "generateFormattedImage"), $args);
+	//		}
+//
+	//		$cached = Injector::inst()->createWithArgs('Image_Cached', array($cacheFile, false, $this));
+	//		return $cached;
+	//	}
+	//}
 
 	/**
 	 * Get the dimensions of this Image.

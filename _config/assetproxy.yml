@@ -1,9 +1,9 @@
 ---
 name: assetproxy
 ---
-Controller:
+SilverStripe\Control\Controller:
   extensions:
-    - AssetProxy
-ShortcodeParser:
+    - BCairns\AssetProxy\AssetProxy
+SilverStripe\View\Parsers\ShortcodeParser:
   extensions:
-    - AssetProxy_Parser
+    - BCairns\AssetProxy\AssetProxyParser
